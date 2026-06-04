@@ -6,7 +6,7 @@ import logoUrl from './flavour_nest_logo.svg'
 <template>
   <RouterLink to="/" class="site-logo">
     <span class="site-mark" aria-hidden="true">
-      <img :src="logoUrl" alt="Flavour Nest logo" width="48" height="48" />
+      <img :src="logoUrl" alt="Flavour Nest logo" width="64" height="64" />
     </span>
     <span>
       <strong>Flavour Nest</strong>
