@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flavor Nest logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#6bbf59"/>
+      <stop offset="1" stop-color="#3a8a3e"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="20" fill="#fff"/>
+  <circle cx="60" cy="44" r="28" fill="url(#g)" />
+  <path d="M44 60c4 6 12 10 16 10s12-4 16-10" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="60" y="98" font-family="Segoe UI, Roboto, Arial" font-size="14" fill="#223322" text-anchor="middle">Flavor Nest</text>
+</svg>
