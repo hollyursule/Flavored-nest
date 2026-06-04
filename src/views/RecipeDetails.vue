@@ -6,6 +6,8 @@ import { recipes } from '../data/store.js'
 const route = useRoute()
 const recipe = computed(() => recipes.find(item => item.id === route.params.id))
 const videoSrc = ref('')
+const selectedImage = ref(null)
+const showModal = ref(false)
 
 function withAutoplay(url) {
   if (!url) {
@@ -22,6 +24,16 @@ function withAutoplay(url) {
   params.set('rel', '0')
 
   return `${base}?${params.toString()}`
+}
+
+function openImage(image) {
+  selectedImage.value = image
+  showModal.value = true
+}
+
+function closeModal() {
+  showModal.value = false
+  selectedImage.value = null
 }
 
 watch(
@@ -118,7 +130,21 @@ watch(
       <div class="section gallery-section">
         <h2>Dish Gallery</h2>
         <div class="gallery-grid">
-          <img v-for="(image, index) in recipe.gallery" :key="index" :src="image" alt="Gallery image" />
+          <img
+            v-for="(image, index) in recipe.gallery"
+            :key="index"
+            :src="image"
+            alt="Gallery image"
+            class="gallery-image"
+            @click="openImage(image)"
+          />
+        </div>
+      </div>
+
+      <div v-if="showModal" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <button class="modal-close" @click="closeModal">✕</button>
+          <img :src="selectedImage" alt="Full view" class="modal-image" />
         </div>
       </div>
     </template>
