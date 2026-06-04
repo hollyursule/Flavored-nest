@@ -13,7 +13,7 @@ function withAutoplay(url) {
   }
 
   const separator = url.includes('?') ? '&' : '?'
-  return `${url}${separator}autoplay=1&mute=1&controls=1&playsinline=1&rel=0`
+  return `${url}${separator}autoplay=1&mute=1&muted=1&controls=1&playsinline=1&rel=0`
 }
 
 watch(
