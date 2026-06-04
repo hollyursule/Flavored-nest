@@ -12,8 +12,16 @@ function withAutoplay(url) {
     return ''
   }
 
-  const separator = url.includes('?') ? '&' : '?'
-  return `${url}${separator}autoplay=1&mute=1&muted=1&controls=1&playsinline=1&rel=0`
+  const [base, query = ''] = url.split('?')
+  const params = new URLSearchParams(query)
+  params.set('autoplay', '1')
+  params.set('mute', '1')
+  params.set('muted', '1')
+  params.set('controls', '1')
+  params.set('playsinline', '1')
+  params.set('rel', '0')
+
+  return `${base}?${params.toString()}`
 }
 
 watch(
