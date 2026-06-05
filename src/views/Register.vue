@@ -3,8 +3,13 @@ import { ref } from 'vue'
 const name = ref('')
 const email = ref('')
 const password = ref('')
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 function register() {
   alert('Your account registration is simulated in this demo.')
+  router.push('/dashboard')
 }
 </script>
 <template>

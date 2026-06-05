@@ -7,6 +7,7 @@
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen
       ></iframe>
+      <!-- Note: Most browsers only autoplay YouTube when the video is muted. This component sets mute=1 & autoplay=1. -->
     </div>
     <img v-else :src="thumbnail" :alt="title" class="video-card-thumbnail" />
     <div class="video-card-content">

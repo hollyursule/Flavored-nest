@@ -27,5 +27,26 @@
       <p>Organized recipes, category browsing, cooking mode, tutorials and a friendly learning platform.</p>
     </div>
   </div>
+
+  <section class="trial-reminder" aria-labelledby="trial-title">
+    <div class="trial-card">
+      <div class="trial-copy">
+        <p class="trial-badge">Subscription Reminder</p>
+        <h2 id="trial-title">Enjoy a FREE 3-Month Trial!</h2>
+        <p>
+          New users receive full access to all features for the first 3 months at no cost.
+          After the trial period ends, a subscription will be required to continue accessing premium features.
+        </p>
+<RouterLink to="/subscription" class="button button-primary">
+          View Subscription Plans
+        </RouterLink>
+      </div>
+
+      <div class="trial-visual" aria-hidden="true">
+        <div class="trial-illustration">🎉</div>
+      </div>
+    </div>
+  </section>
 </section>
+
 </template>

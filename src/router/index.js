@@ -19,6 +19,7 @@ import ManageCategories from '../views/ManageCategories.vue'
 import ManageTutorials from '../views/ManageTutorials.vue'
 import ManageUsers from '../views/ManageUsers.vue'
 import ManageReviews from '../views/ManageReviews.vue'
+import Settings from '../views/Settings.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -32,6 +33,8 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/register', component: Register },
   { path: '/dashboard', component: Dashboard },
+  { path: '/subscription', component: () => import('../views/Subscription.vue') },
+  { path: '/settings', component: Settings },
   { path: '/profile', component: Profile },
   { path: '/favorites', component: Favorites },
   { path: '/notifications', component: Notifications },

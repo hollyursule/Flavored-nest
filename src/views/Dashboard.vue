@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { recipes, tutorials } from '../data/store.js'
+import Sidebar from '../components/Sidebar.vue'
 
 const favoriteIds = ['carbonara-pasta', 'lava-cake', 'teriyaki-bowl']
 const recentIds = ['carbonara-pasta', 'teriyaki-bowl']
@@ -32,161 +33,172 @@ const activity = [
 </script>
 
 <template>
-  <section class="user-dashboard">
-    <div class="dashboard-hero">
-      <div class="dashboard-hero-copy">
-        <p class="eyebrow">Welcome back</p>
-        <h1>Your Cooking Dashboard</h1>
-        <p>
-          Pick up where you left off, plan your next meal and keep your favorite recipes close.
-        </p>
-      </div>
-      <div class="dashboard-hero-actions">
-        <RouterLink to="/recipes" class="button">Explore Recipes</RouterLink>
-        <RouterLink to="/favorites" class="button button-secondary">View Favorites</RouterLink>
-      </div>
-    </div>
-
-    <div class="user-stat-grid" aria-label="Dashboard statistics">
-      <article v-for="stat in stats" :key="stat.label" class="user-stat-card">
-        <span>{{ stat.label }}</span>
-        <strong>{{ stat.value }}</strong>
-        <p>{{ stat.note }}</p>
-      </article>
-    </div>
-
-    <div class="dashboard-main-grid">
-      <section class="dashboard-panel continue-panel" aria-labelledby="continue-title">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">In Progress</p>
-            <h2 id="continue-title">Continue Cooking</h2>
-          </div>
-          <span class="progress-pill">Step 2 of 4</span>
+  <div class="layout-grid dashboard-layout">
+    <Sidebar />
+    <section class="user-dashboard main-panel">
+      <div class="dashboard-hero">
+        <div class="dashboard-hero-copy">
+          <p class="eyebrow">Welcome back</p>
+          <h1>Your Cooking Dashboard</h1>
+          <p>
+            Pick up where you left off, plan your next meal and keep your favorite recipes close.
+          </p>
         </div>
+        <div class="dashboard-hero-actions">
+          <RouterLink to="/recipes" class="button">Explore Recipes</RouterLink>
+          <RouterLink to="/favorites" class="button button-secondary">View Favorites</RouterLink>
+        </div>
+      </div>
 
-        <div class="continue-card">
-          <img :src="continueRecipe.image" :alt="continueRecipe.name" />
-          <div class="continue-copy">
-            <p class="recipe-category">{{ continueRecipe.category }}</p>
-            <h3>{{ continueRecipe.name }}</h3>
-            <p>{{ continueRecipe.description }}</p>
-            <div class="recipe-meta-row">
-              <span>{{ continueRecipe.total_time }} mins</span>
-              <span>{{ continueRecipe.difficulty }}</span>
-              <span>{{ continueRecipe.servings }} servings</span>
+      <div class="user-stat-grid" aria-label="Dashboard statistics">
+        <article v-for="stat in stats" :key="stat.label" class="user-stat-card">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+          <p>{{ stat.note }}</p>
+        </article>
+      </div>
+
+      <div class="dashboard-main-grid">
+        <section class="dashboard-panel continue-panel" aria-labelledby="continue-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">In Progress</p>
+              <h2 id="continue-title">Continue Cooking</h2>
             </div>
-            <RouterLink :to="'/cooking/' + continueRecipe.id" class="button button-small">
-              Resume Cooking
+            <span class="progress-pill">Step 2 of 4</span>
+          </div>
+
+          <div class="continue-card">
+            <img :src="continueRecipe.image" :alt="continueRecipe.name" />
+            <div class="continue-copy">
+              <p class="recipe-category">{{ continueRecipe.category }}</p>
+              <h3>{{ continueRecipe.name }}</h3>
+              <p>{{ continueRecipe.description }}</p>
+              <div class="recipe-meta-row">
+                <span>{{ continueRecipe.total_time }} mins</span>
+                <span>{{ continueRecipe.difficulty }}</span>
+                <span>{{ continueRecipe.servings }} servings</span>
+              </div>
+              <RouterLink :to="'/cooking/' + continueRecipe.id" class="button button-small">
+                Resume Cooking
+              </RouterLink>
+            </div>
+          </div>
+        </section>
+
+        <aside class="dashboard-panel profile-summary" aria-labelledby="profile-title">
+          <div class="profile-avatar" aria-hidden="true">JD</div>
+          <h2 id="profile-title">Jane Doe</h2>
+          <p>Italian cuisine, quick meals, desserts and vegetarian cooking.</p>
+          <RouterLink to="/profile" class="text-link">Edit profile</RouterLink>
+        </aside>
+      </div>
+
+      <div class="dashboard-secondary-grid">
+        <section class="dashboard-panel" aria-labelledby="favorites-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Saved</p>
+              <h2 id="favorites-title">Favorite Recipes</h2>
+            </div>
+            <RouterLink to="/favorites" class="text-link">View all</RouterLink>
+          </div>
+
+          <div class="mini-recipe-list">
+            <RouterLink
+              v-for="recipe in favorites"
+              :key="recipe.id"
+              :to="'/recipe/' + recipe.id"
+              class="mini-recipe"
+            >
+              <img :src="recipe.image" :alt="recipe.name" />
+              <span>
+                <strong>{{ recipe.name }}</strong>
+                <small>{{ recipe.total_time }} mins · {{ recipe.difficulty }}</small>
+              </span>
             </RouterLink>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <aside class="dashboard-panel profile-summary" aria-labelledby="profile-title">
-        <div class="profile-avatar" aria-hidden="true">JD</div>
-        <h2 id="profile-title">Jane Doe</h2>
-        <p>Italian cuisine, quick meals, desserts and vegetarian cooking.</p>
-        <RouterLink to="/profile" class="text-link">Edit profile</RouterLink>
-      </aside>
-    </div>
+        <section class="dashboard-panel" aria-labelledby="plan-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">This Week</p>
+              <h2 id="plan-title">Meal Plan</h2>
+            </div>
+          </div>
 
-    <div class="dashboard-secondary-grid">
-      <section class="dashboard-panel" aria-labelledby="favorites-title">
+          <div class="meal-plan-list">
+            <div v-for="item in mealPlan" :key="item.day" class="meal-plan-row">
+              <strong>{{ item.day }}</strong>
+              <span>{{ item.recipe }}</span>
+              <em>{{ item.tag }}</em>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-panel" aria-labelledby="activity-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Updates</p>
+              <h2 id="activity-title">Recent Activity</h2>
+            </div>
+            <RouterLink to="/notifications" class="text-link">Alerts</RouterLink>
+          </div>
+
+          <ul class="activity-list">
+            <li v-for="item in activity" :key="item">{{ item }}</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="dashboard-panel" aria-labelledby="suggestions-title">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Saved</p>
-            <h2 id="favorites-title">Favorite Recipes</h2>
+            <p class="eyebrow">Recommended</p>
+            <h2 id="suggestions-title">Cook Next</h2>
           </div>
-          <RouterLink to="/favorites" class="text-link">View all</RouterLink>
+          <RouterLink to="/recipes" class="text-link">Browse recipes</RouterLink>
         </div>
 
-        <div class="mini-recipe-list">
+        <div class="suggestion-grid">
           <RouterLink
-            v-for="recipe in favorites"
+            v-for="recipe in suggestedRecipes"
             :key="recipe.id"
             :to="'/recipe/' + recipe.id"
-            class="mini-recipe"
+            class="suggestion-card"
           >
             <img :src="recipe.image" :alt="recipe.name" />
-            <span>
-              <strong>{{ recipe.name }}</strong>
-              <small>{{ recipe.total_time }} mins · {{ recipe.difficulty }}</small>
-            </span>
+            <div>
+              <small>{{ recipe.category }}</small>
+              <h3>{{ recipe.name }}</h3>
+              <p>{{ recipe.total_time }} mins · {{ recipe.difficulty }}</p>
+            </div>
           </RouterLink>
         </div>
       </section>
 
-      <section class="dashboard-panel" aria-labelledby="plan-title">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">This Week</p>
-            <h2 id="plan-title">Meal Plan</h2>
-          </div>
-        </div>
-
-        <div class="meal-plan-list">
-          <div v-for="item in mealPlan" :key="item.day" class="meal-plan-row">
-            <strong>{{ item.day }}</strong>
-            <span>{{ item.recipe }}</span>
-            <em>{{ item.tag }}</em>
-          </div>
-        </div>
-      </section>
-
-      <section class="dashboard-panel" aria-labelledby="activity-title">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Updates</p>
-            <h2 id="activity-title">Recent Activity</h2>
-          </div>
-          <RouterLink to="/notifications" class="text-link">Alerts</RouterLink>
-        </div>
-
-        <ul class="activity-list">
-          <li v-for="item in activity" :key="item">{{ item }}</li>
-        </ul>
-      </section>
-    </div>
-
-    <section class="dashboard-panel" aria-labelledby="suggestions-title">
-      <div class="panel-heading">
+      <section v-if="firstTutorial" class="lesson-strip" aria-labelledby="lesson-title">
         <div>
-          <p class="eyebrow">Recommended</p>
-          <h2 id="suggestions-title">Cook Next</h2>
+          <p class="eyebrow">Skill Builder</p>
+          <h2 id="lesson-title">{{ firstTutorial.title }}</h2>
+          <p>{{ firstTutorial.description }}</p>
         </div>
-        <RouterLink to="/recipes" class="text-link">Browse recipes</RouterLink>
-      </div>
-
-      <div class="suggestion-grid">
-        <RouterLink
-          v-for="recipe in suggestedRecipes"
-          :key="recipe.id"
-          :to="'/recipe/' + recipe.id"
-          class="suggestion-card"
-        >
-          <img :src="recipe.image" :alt="recipe.name" />
-          <div>
-            <small>{{ recipe.category }}</small>
-            <h3>{{ recipe.name }}</h3>
-            <p>{{ recipe.total_time }} mins · {{ recipe.difficulty }}</p>
-          </div>
-        </RouterLink>
-      </div>
+        <RouterLink :to="'/tutorials'" class="button button-secondary">Open Tutorials</RouterLink>
+      </section>
     </section>
-
-    <section v-if="firstTutorial" class="lesson-strip" aria-labelledby="lesson-title">
-      <div>
-        <p class="eyebrow">Skill Builder</p>
-        <h2 id="lesson-title">{{ firstTutorial.title }}</h2>
-        <p>{{ firstTutorial.description }}</p>
-      </div>
-      <RouterLink :to="'/tutorials'" class="button button-secondary">Open Tutorials</RouterLink>
-    </section>
-  </section>
+  </div>
 </template>
 
 <style scoped>
+.dashboard-layout {
+  align-items: flex-start;
+}
+
+.main-panel {
+  width: 100%;
+}
+
 .user-dashboard {
   display: grid;
   gap: 24px;
@@ -553,3 +565,4 @@ const activity = [
   }
 }
 </style>
+

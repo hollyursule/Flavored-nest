@@ -2,8 +2,13 @@
 import { ref } from 'vue'
 const email = ref('')
 const password = ref('')
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 function login() {
   alert('Welcome back! The login action is simulated in this demo.')
+  router.push('/dashboard')
 }
 </script>
 <template>

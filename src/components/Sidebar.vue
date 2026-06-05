@@ -14,7 +14,15 @@ import { categories } from '../data/store.js'
     <div class="sidebar-card">
       <h4>Cooking Lab</h4>
       <p>Jump into interactive step-by-step mode and follow a recipe while cooking.</p>
-      <RouterLink to="/dashboard" class="button button-secondary">Open Dashboard</RouterLink>
     </div>
+
+    <ul class="sidebar-list sidebar-actions">
+      <li>
+        <RouterLink to="/settings" class="sidebar-link">
+          <span class="sidebar-icon" aria-hidden="true">⚙️</span>
+          Settings
+        </RouterLink>
+      </li>
+    </ul>
   </aside>
 </template>
